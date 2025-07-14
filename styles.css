@@ -64,6 +64,7 @@ body {
     transition: color var(--transition-normal);
     overflow-x: hidden;
     background-attachment: fixed;
+    will-change: background-position;
 }
 
 @keyframes spaceTravel {
@@ -100,6 +101,7 @@ body::before {
     animation: brightStars 12s ease-in-out infinite alternate;
     pointer-events: none;
     z-index: 0;
+    will-change: transform, opacity;
 }
 
 @keyframes brightStars {
@@ -121,6 +123,7 @@ body::after {
     animation: nebula 80s ease-in-out infinite alternate;
     pointer-events: none;
     z-index: 0;
+    will-change: transform, opacity;
 }
 
 @keyframes nebula {
@@ -154,6 +157,7 @@ body::after {
     margin: 0 auto 2rem;
     transform-style: preserve-3d;
     animation: rotateCube 2s infinite linear;
+    will-change: transform;
 }
 
 .cube-face {
@@ -848,6 +852,9 @@ section:not(.hero)::after {
     border: 1px solid rgba(96, 165, 250, 0.2);
     position: relative;
     overflow: hidden;
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .project-card::before {
@@ -860,6 +867,10 @@ section:not(.hero)::after {
     background: var(--accent-gradient);
     opacity: 0;
     transition: opacity var(--transition-normal);
+}
+
+.project-card:hover {
+    transform: translateY(-10px) scale(1.02) !important;
 }
 
 .project-card:hover {
@@ -1690,11 +1701,54 @@ section:not(.hero)::after {
     font-weight: 500;
 }
 
+/* Performance optimization classes */
+.project-card-hover {
+    transform: translateY(-10px) scale(1.02) !important;
+}
+
+/* Improved project card performance */
+.project-card {
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Hardware acceleration for animated elements */
+.hero-image,
+.loading-cube,
+.timeline-content,
+.skill-category {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     :root {
         --container-padding: 1rem;
         --section-padding: 3rem 0;
+    }
+
+    /* Disable heavy animations on mobile for performance */
+    body {
+        background-attachment: scroll;
+        animation: none;
+    }
+    
+    body::before,
+    body::after {
+        animation-duration: 60s;
+        opacity: 0.3;
+    }
+    
+    /* Reduce transform layers on mobile */
+    .project-card:hover,
+    .skill-category:hover,
+    .stat-item:hover,
+    .education-card:hover,
+    .leadership-card:hover {
+        transform: translateY(-4px);
     }
 
     .nav-menu {
@@ -1724,6 +1778,8 @@ section:not(.hero)::after {
         text-align: center;
         max-width: 90%;
         padding: 0 1rem;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .hero-content {
@@ -1734,15 +1790,25 @@ section:not(.hero)::after {
     .image-container {
         width: 250px;
         height: 250px;
+        max-width: 90vw;
+        max-height: 90vw;
     }
 
     .hero-name {
         font-size: 2.5rem;
+        word-break: break-word;
     }
 
     .hero-actions {
         flex-direction: column;
         align-items: center;
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
     }
 
     .about-content {
@@ -1812,6 +1878,7 @@ section:not(.hero)::after {
 
     .projects-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     .skills-container {
@@ -1840,6 +1907,25 @@ section:not(.hero)::after {
 
     .leadership-icon {
         margin: 0 auto;
+    }
+    
+    /* Prevent horizontal scroll on mobile */
+    * {
+        max-width: 100%;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    
+    /* Simplify complex gradients on mobile */
+    .project-card,
+    .skill-category,
+    .education-card,
+    .leadership-card {
+        background: var(--bg-secondary);
+        backdrop-filter: none;
     }
 }
 
@@ -1965,6 +2051,7 @@ section:not(.hero)::after {
     border-radius: 50%;
     transition: opacity 0.3s ease;
     filter: blur(0.5px);
+    will-change: transform, opacity;
 }
 
 .cursor-star-large {
@@ -1992,6 +2079,21 @@ section:not(.hero)::after {
     animation: twinkle-tiny 1.8s ease-in-out infinite alternate;
 }
 
+/* Disable cursor stars on mobile for performance */
+@media (max-width: 768px) {
+    #global-stars {
+        display: none;
+    }
+    
+    .cursor-star,
+    .cursor-star-large,
+    .cursor-star-medium,
+    .cursor-star-small,
+    .cursor-star-tiny {
+        display: none !important;
+    }
+}
+
 @keyframes twinkle-large {
     0% { opacity: 0.6; transform: scale(1); }
     100% { opacity: 1; transform: scale(1.2); }
@@ -2010,4 +2112,117 @@ section:not(.hero)::after {
 @keyframes twinkle-tiny {
     0% { opacity: 0.2; transform: scale(1); }
     100% { opacity: 0.4; transform: scale(1.02); }
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+    /* Force hardware acceleration for key elements */
+    .hero-image,
+    .project-card,
+    .skill-category {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+    
+    /* Simplify shadows on mobile */
+    .project-card,
+    .skill-category,
+    .education-card,
+    .leadership-card,
+    .timeline-content {
+        box-shadow: var(--shadow-sm) !important;
+    }
+    
+    /* Optimize text rendering */
+    body {
+        text-rendering: optimizeSpeed;
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
+    
+    /* Prevent zoom on input focus */
+    input, select, textarea {
+        font-size: 16px !important;
+    }
+    
+    /* Ensure content doesn't overflow */
+    .hero-content,
+    .about-content,
+    .projects-grid,
+    .skills-container,
+    .education-grid,
+    .footer-content {
+        overflow: hidden;
+    }
+}
+
+/* Additional performance optimizations for desktop */
+@media (min-width: 769px) {
+    /* Reduce animations on slower devices */
+    @media (hover: hover) and (pointer: fine) {
+        .project-card,
+        .skill-category,
+        .education-card,
+        .leadership-card {
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+    }
+    
+    /* Optimize for high refresh rate displays */
+    @media (min-resolution: 144dpi) {
+        * {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+    }
+}
+
+/* Optimize for devices that don't support hover */
+@media (hover: none) {
+    .project-card:hover,
+    .skill-category:hover,
+    .education-card:hover,
+    .leadership-card:hover {
+        transform: none !important;
+        box-shadow: var(--shadow-md) !important;
+    }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    body,
+    body::before,
+    body::after {
+        animation: none !important;
+    }
+}
+
+/* Mobile device optimizations */
+.mobile-device .cursor-star,
+.mobile-device #global-stars,
+.mobile-device .three-bg {
+    display: none !important;
+}
+
+.mobile-device body {
+    background-attachment: scroll !important;
+}
+
+/* Optimize rendering for better scroll performance */
+.container,
+.hero-content,
+.section-header,
+.timeline-content,
+.project-card,
+.skill-category {
+    contain: layout style paint;
 }

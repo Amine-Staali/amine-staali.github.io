@@ -9,8 +9,35 @@ let cursorStars = [];
 let cursorX = 0, cursorY = 0;
 let targetCursorX = 0, targetCursorY = 0;
 
+// Performance optimization variables
+let isScrolling = false;
+let scrollTimeout;
+let animationPaused = false;
+let lastFrameTime = 0;
+const targetFPS = 60;
+const frameInterval = 1000 / targetFPS;
+
+// Throttle function for performance
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
+}
+
 // Initialize global cursor-following stars
 function initGlobalStars() {
+    // Check if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+    
     const starsContainer = document.createElement('div');
     starsContainer.id = 'global-stars';
     starsContainer.style.cssText = `
@@ -25,14 +52,14 @@ function initGlobalStars() {
     `;
     document.body.appendChild(starsContainer);
 
-    // Create multiple layers of stars
-    createCursorStarLayer(20, 'large', starsContainer); // Large bright stars
-    createCursorStarLayer(40, 'medium', starsContainer); // Medium stars
-    createCursorStarLayer(80, 'small', starsContainer); // Small stars
-    createCursorStarLayer(120, 'tiny', starsContainer); // Tiny distant stars
+    // Reduce star count for better performance
+    createCursorStarLayer(10, 'large', starsContainer); // Reduced from 20
+    createCursorStarLayer(20, 'medium', starsContainer); // Reduced from 40
+    createCursorStarLayer(30, 'small', starsContainer); // Reduced from 80
+    createCursorStarLayer(40, 'tiny', starsContainer); // Reduced from 120
 
-    // Add global mouse move listener
-    document.addEventListener('mousemove', onGlobalMouseMove);
+    // Add throttled global mouse move listener
+    document.addEventListener('mousemove', throttle(onGlobalMouseMove, 16)); // ~60fps
     
     // Start animation loop
     animateGlobalStars();
@@ -117,6 +144,16 @@ function onGlobalMouseMove(event) {
 }
 
 function animateGlobalStars() {
+    const currentTime = Date.now();
+    
+    // Skip frame if we're animating too fast or if scrolling
+    if (currentTime - lastFrameTime < frameInterval || animationPaused) {
+        requestAnimationFrame(animateGlobalStars);
+        return;
+    }
+    
+    lastFrameTime = currentTime;
+    
     // Smooth cursor position interpolation
     cursorX += (targetCursorX - cursorX) * 0.1;
     cursorY += (targetCursorY - cursorY) * 0.1;
@@ -129,13 +166,13 @@ function animateGlobalStars() {
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             // Influence radius
-            const influenceRadius = 200;
+            const influenceRadius = 150; // Reduced from 200
             const influence = Math.max(0, 1 - distance / influenceRadius);
             
             // Move towards cursor with smooth interpolation
             if (influence > 0) {
-                star.x += dx * star.speed * influence * 0.5;
-                star.y += dy * star.speed * influence * 0.5;
+                star.x += dx * star.speed * influence * 0.3; // Reduced from 0.5
+                star.y += dy * star.speed * influence * 0.3;
             } else {
                 // Slowly return to base position when not influenced
                 star.x += (star.baseX - star.x) * 0.01;
@@ -146,13 +183,12 @@ function animateGlobalStars() {
             star.x = Math.max(0, Math.min(window.innerWidth, star.x));
             star.y = Math.max(0, Math.min(window.innerHeight, star.y));
 
-            // Update DOM position
-            star.element.style.left = star.x + 'px';
-            star.element.style.top = star.y + 'px';
+            // Use transform3d for hardware acceleration instead of left/top
+            star.element.style.transform = `translate3d(${star.x}px, ${star.y}px, 0)`;
             
-            // Dynamic opacity based on influence
+            // Simplified opacity calculation
             const baseOpacity = getStarOpacity(layer.size);
-            const dynamicOpacity = baseOpacity * (0.3 + influence * 0.7);
+            const dynamicOpacity = baseOpacity * (0.5 + influence * 0.5);
             star.element.style.opacity = dynamicOpacity;
         });
     });
@@ -181,11 +217,19 @@ function initThreeJS() {
     
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-    renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+    renderer = new THREE.WebGLRenderer({ 
+        canvas: canvas, 
+        alpha: true, 
+        antialias: false, // Disable antialiasing for better performance
+        powerPreference: "high-performance" 
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
+    
+    // Reduce pixel ratio for better performance on high-DPI displays
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Create particles
+    // Create particles with reduced count
     createParticles();
 
     // Position camera
@@ -194,9 +238,9 @@ function initThreeJS() {
     // Animation loop
     animate();
 
-    // Handle resize
-    window.addEventListener('resize', onWindowResize);
-    document.addEventListener('mousemove', onDocumentMouseMove);
+    // Handle resize with throttling
+    window.addEventListener('resize', throttle(onWindowResize, 100));
+    document.addEventListener('mousemove', throttle(onDocumentMouseMove, 16));
 }
 
 function createParticles() {
@@ -204,7 +248,8 @@ function createParticles() {
     const vertices = [];
     const colors = [];
     
-    const particleCount = 400;
+    // Reduce particle count for better performance
+    const particleCount = 200; // Reduced from 400
     
     for (let i = 0; i < particleCount; i++) {
         vertices.push(
@@ -227,7 +272,7 @@ function createParticles() {
         size: 2,
         vertexColors: true,
         transparent: true,
-        opacity: 0.8
+        opacity: 0.6 // Reduced opacity for less GPU load
     });
     
     particles = new THREE.Points(geometry, material);
@@ -235,15 +280,21 @@ function createParticles() {
 }
 
 function animate() {
+    // Pause animation during scroll for better performance
+    if (animationPaused) {
+        requestAnimationFrame(animate);
+        return;
+    }
+    
     requestAnimationFrame(animate);
     
-    // Rotate particles
-    particles.rotation.x += 0.001;
-    particles.rotation.y += 0.002;
+    // Reduce rotation speed for smoother performance
+    particles.rotation.x += 0.0005; // Reduced from 0.001
+    particles.rotation.y += 0.001;  // Reduced from 0.002
     
-    // Mouse interaction
-    camera.position.x += (mouseX - camera.position.x) * 0.05;
-    camera.position.y += (-mouseY - camera.position.y) * 0.05;
+    // Mouse interaction with reduced sensitivity
+    camera.position.x += (mouseX - camera.position.x) * 0.03; // Reduced from 0.05
+    camera.position.y += (-mouseY - camera.position.y) * 0.03;
     camera.lookAt(scene.position);
     
     renderer.render(scene, camera);
@@ -478,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Active navigation link
+    // Active navigation link with throttled scroll listener
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
     
@@ -501,35 +552,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    window.addEventListener('scroll', updateActiveLink);
+    // Throttled scroll listener for better performance
+    window.addEventListener('scroll', throttle(updateActiveLink, 100));
     
-    // Animated counters
-    function animateCounters() {
-        const counters = document.querySelectorAll('.stat-number');
-        
-        counters.forEach(counter => {
-            const targetAttr = counter.getAttribute('data-target');
-            if (!targetAttr) return; // Skip if no data-target attribute
-            
-            const target = parseInt(targetAttr);
-            if (isNaN(target)) return; // Skip if target is not a number
-            
-            const increment = target / 200;
-            let current = 0;
-            
-            const updateCounter = () => {
-                if (current < target) {
-                    current += increment;
-                    counter.textContent = Math.ceil(current);
-                    setTimeout(updateCounter, 10);
-                } else {
-                    counter.textContent = target;
-                }
-            };
-            
-            updateCounter();
-        });
-    }
+    // Pause animations during scroll
+    window.addEventListener('scroll', () => {
+        animationPaused = true;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            animationPaused = false;
+        }, 150);
+    });
+
     
     // Intersection Observer for animations
     const observerOptions = {
@@ -542,11 +576,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                
-                // Trigger counter animation for stats section
-                if (entry.target.classList.contains('about-stats')) {
-                    animateCounters();
-                }
             }
         });
     }, observerOptions);
@@ -625,25 +654,25 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
     
-    // Navbar background on scroll
-    window.addEventListener('scroll', () => {
+    // Navbar background on scroll with throttling
+    window.addEventListener('scroll', throttle(() => {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
             navbar.style.background = 'rgba(15, 23, 42, 0.98)';
         } else {
             navbar.style.background = 'rgba(15, 23, 42, 0.95)';
         }
-    });
+    }, 100));
     
-    // Add hover effects to project cards
+    // Optimized hover effects with CSS classes instead of inline styles
     const projectCards = document.querySelectorAll('.project-card');
     projectCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
+            this.classList.add('project-card-hover');
         });
         
         card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
+            this.classList.remove('project-card-hover');
         });
     });
     

@@ -7,8 +7,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Performance optimizations -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="myImage.png" as="image" type="image/png">
+    <link rel="preload" href="CV.pdf" as="document">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//github.com">
+    <link rel="dns-prefetch" href="//linkedin.com">
 </head>
 <body>
     <!-- Loading Screen -->
@@ -148,15 +161,15 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
-                        <div class="stat-number" data-target="10">0</div>
+                        <div class="stat-number">10</div>
                         <div class="stat-label">+ Key Projects Delivered</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-target="20">0</div>
+                        <div class="stat-number">20</div>
                         <div class="stat-label">+ Students Mentored</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-target="3">0</div>
+                        <div class="stat-number">3</div>
                         <div class="stat-label">Years Experience</div>
                     </div>
                 </div>
@@ -576,7 +589,7 @@
                             <i class="fas fa-university"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-number" data-target="5">0</div>
+                            <div class="stat-number">5</div>
                             <div class="stat-label">Years Academic Excellence</div>
                         </div>
                     </div>
@@ -585,7 +598,7 @@
                             <i class="fas fa-user-graduate"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-number" data-target="20">0</div>
+                            <div class="stat-number">20</div>
                             <div class="stat-label">Students Taught</div>
                         </div>
                     </div>
@@ -594,7 +607,7 @@
                             <i class="fas fa-trophy"></i>
                         </div>
                         <div class="stat-content">
-                            <div class="stat-number" data-target="3">0</div>
+                            <div class="stat-number">3</div>
                             <div class="stat-label">Leadership Roles</div>
                         </div>
                     </div>
@@ -685,7 +698,22 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="script.js" defer></script>
+    
+    <!-- Performance optimization script -->
+    <script>
+        // Disable animations if user prefers reduced motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.style.setProperty('--transition-fast', '0s');
+            document.documentElement.style.setProperty('--transition-normal', '0s');
+            document.documentElement.style.setProperty('--transition-slow', '0s');
+        }
+        
+        // Optimize for mobile performance
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            document.documentElement.classList.add('mobile-device');
+        }
+    </script>
 </body>
 </html>
