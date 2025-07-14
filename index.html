@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Amine Staali - DevOps Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-cube">
+                <div class="cube-face"></div>
+                <div class="cube-face"></div>
+                <div class="cube-face"></div>
+                <div class="cube-face"></div>
+                <div class="cube-face"></div>
+                <div class="cube-face"></div>
+            </div>
+            <p class="loading-text">Initializing DevOps Portfolio...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+            </ul>
+            <div class="nav-controls">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Global Three.js Background -->
+    <div class="three-bg">
+        <canvas id="three-canvas"></canvas>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-intro">
+                    <span class="hero-greeting">Hello, I'm</span>
+                    <h1 class="hero-name">Mohamed Amine Staali</h1>
+                    <div class="hero-title-wrapper">
+                        <span class="hero-title">DevOps Engineer</span>
+                        <div class="hero-typing-cursor"></div>
+                    </div>
+                    <p class="hero-description">
+                        Passionate about cloud automation, infrastructure orchestration, and AI-powered solutions. 
+                        I bring adaptability, rapid learning, and technical excellence to modern DevOps challenges.
+                    </p>
+                </div>
+                <div class="hero-actions">
+                    <a href="#footer" class="btn btn-primary">Get In Touch</a>
+                    <a href="CV.pdf" download class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+                <div class="hero-social">
+                    <a href="https://github.com/Amine-Staali" target="_blank" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/mohamed-amine-staali-b12275224/" target="_blank" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:stmedamine@gmail.com" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-container">
+                    <img src="myImage.png" alt="Mohamed Amine Staali" class="profile-image" loading="lazy">
+                    <div class="image-overlay"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <p class="section-subtitle">Driving Innovation Through DevOps Excellence</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-intro">
+                        <h3>Versatile Technology Professional</h3>
+                        <p>
+                            As an entry-level DevOps engineer with hands-on experience in AI-powered applications, 
+                            cloud automation, and infrastructure orchestration, I bring a unique blend of adaptability, 
+                            rapid learning abilities, and technical excellence to modern software deployment challenges.
+                        </p>
+                    </div>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>Cloud Infrastructure</h4>
+                                <p>Expert in AWS services, Terraform automation, and Kubernetes orchestration</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>AI Integration</h4>
+                                <p>Specialized in AI-powered automation and intelligent DevOps solutions</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="highlight-content">
+                                <h4>Technical Instructor</h4>
+                                <p>Passionate educator mentoring students in web development and emerging technologies</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="10">0</div>
+                        <div class="stat-label">+ Key Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="20">0</div>
+                        <div class="stat-label">+ Students Mentored</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="3">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Experience</h2>
+                <p class="section-subtitle">Building the Future of Infrastructure</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>AI/DevOps Engineer Intern</h3>
+                            <span class="company">M&C Aero</span>
+                            <span class="period">Feb-May 2025</span>
+                        </div>
+                        <div class="timeline-description">
+                            <p>Developed an AI-powered RFP automation platform reducing response time by 93%.</p>
+                            <ul>
+                                <li>Deployed serverless pipelines with AWS Lambda and S3 for scalable data processing</li>
+                                <li>Architected multi-agent RAG architecture using FastAPI, LangChain, Celery, AWS SQS and Kubernetes</li>
+                                <li>Automated infrastructure with Terraform and integrated Keycloak security</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">Terraform</span>
+                                <span class="tech-tag">Kubernetes</span>
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">LangChain</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Software Engineer Intern</h3>
+                            <span class="company">Talan Tunisia</span>
+                            <span class="period">Jul-Aug 2024</span>
+                        </div>
+                        <div class="timeline-description">
+                            <p>Built a mixed-reality bio-lab with ML models for result interpretation.</p>
+                            <ul>
+                                <li>Delivered RESTful APIs and enhanced team productivity</li>
+                                <li>Collaborated in Agile/Scrum environments</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HoloLens 2</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">GitHub</span>
+                                <span class="tech-tag">Agile/Scrum</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Software Engineer Intern</h3>
+                            <span class="company">Smart For Green</span>
+                            <span class="period">Jun-Aug 2023</span>
+                        </div>
+                        <div class="timeline-description">
+                            <p>Developed a recycling platform connecting users with collectors.</p>
+                            <ul>
+                                <li>Set up CI/CD using GitHub webhooks and Jenkins</li>
+                                <li>Integrated blockchain traceability and GIS services</li>
+                            </ul>
+                            <div class="tech-stack">
+                                <span class="tech-tag">Django</span>
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">Jenkins</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Blockchain</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Key Projects</h2>
+                <p class="section-subtitle">Innovation Through Code</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>InShape AI Fitness Platform</h3>
+                        <p>LLM-powered workout recommendations with computer vision posture correction achieving 95% accuracy.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">LangChain</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Computer Vision</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-charging-station"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>E-Transport EV Platform</h3>
+                        <p>Integrated charging stations with blockchain transactions and PostGIS mapping for electric vehicle infrastructure.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">PostGIS</span>
+                            <span class="tech-tag">Blockchain</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>CI/CD Automation</h3>
+                        <p>Jenkins pipeline with Ansible provisioning, reducing setup time from hours to minutes.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Jenkins</span>
+                            <span class="tech-tag">Ansible</span>
+                            <span class="tech-tag">GitHub</span>
+                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Automation</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3>Canteen Management System</h3>
+                        <p>Automated access control using ID recognition and time-based scheduling for efficient canteen operations.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Django</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">SQL Server</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">Technologies I Work With</p>
+            </div>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-cloud"></i>
+                        Cloud & DevOps
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fab fa-aws"></i>
+                            <span>AWS</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-cube"></i>
+                            <span>Terraform</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-server"></i>
+                            <span>Ansible</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-docker"></i>
+                            <span>Docker</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-dharmachakra"></i>
+                            <span>Kubernetes</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-jenkins"></i>
+                            <span>Jenkins</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-code"></i>
+                        Development
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fab fa-react"></i>
+                            <span>React</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-node-js"></i>
+                            <span>Node.js</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-python"></i>
+                            <span>Django</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-rocket"></i>
+                            <span>FastAPI</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-database"></i>
+                            <span>REST APIs</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-js"></i>
+                            <span>JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-robot"></i>
+                        AI/ML
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fas fa-brain"></i>
+                            <span>LangChain</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-users-cog"></i>
+                            <span>AI Agents</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-search"></i>
+                            <span>RAG</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-language"></i>
+                            <span>LLMs</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-edit"></i>
+                            <span>Prompt Engineering</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <i class="fas fa-database"></i>
+                        Databases
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fas fa-database"></i>
+                            <span>PostgreSQL</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-leaf"></i>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-database"></i>
+                            <span>MySQL</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-map"></i>
+                            <span>PostGIS</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-server"></i>
+                            <span>SQL Server</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-code"></i>
+                            <span>SQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Leadership Section -->
+    <section id="education" class="education">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Education & Leadership</h2>
+                <p class="section-subtitle">Building Knowledge and Leading Communities</p>
+            </div>
+            <div class="education-content">
+                <div class="education-grid">
+                    <!-- Education Column -->
+                    <div class="education-column">
+                        <h3 class="column-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            Academic Journey
+                        </h3>
+                        <div class="education-timeline">
+                            <div class="education-item">
+                                <div class="education-dot"></div>
+                                <div class="education-card">
+                                    <div class="education-header">
+                                        <h4>Engineering Degree, Computer Science</h4>
+                                        <span class="institution">National School of Computer Science (ENSI)</span>
+                                        <span class="education-period">2022-2025</span>
+                                    </div>
+                                    <div class="education-description">
+                                        <p>Comprehensive computer science education focusing on software engineering, algorithms, and modern development practices.</p>
+                                        <div class="education-highlights">
+                                            <span class="highlight-tag">Software Engineering</span>
+                                            <span class="highlight-tag">Cloud Computing</span>
+                                            <span class="highlight-tag">AI/ML</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="education-item">
+                                <div class="education-dot"></div>
+                                <div class="education-card">
+                                    <div class="education-header">
+                                        <h4>Preparatory Engineering Studies</h4>
+                                        <span class="institution">IPEIEM, El Manar</span>
+                                        <span class="education-period">2020-2022</span>
+                                    </div>
+                                    <div class="education-description">
+                                        <p>Intensive preparatory program building strong foundations in mathematics, physics, and engineering fundamentals.</p>
+                                        <div class="education-highlights">
+                                            <span class="highlight-tag">Mathematics</span>
+                                            <span class="highlight-tag">Physics</span>
+                                            <span class="highlight-tag">Engineering</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leadership Column -->
+                    <div class="leadership-column">
+                        <h3 class="column-title">
+                            <i class="fas fa-users"></i>
+                            Leadership & Activities
+                        </h3>
+                        <div class="leadership-grid">
+                            <div class="leadership-card">
+                                <div class="leadership-icon">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                </div>
+                                <div class="leadership-content">
+                                    <h4>Web Development Instructor</h4>
+                                    <span class="leadership-period">2024</span>
+                                    <p>Taught web development fundamentals to 20+ students, covering modern frameworks and best practices.</p>
+                                    <div class="leadership-achievements">
+                                        <span class="achievement-tag">20+ Students</span>
+                                        <span class="achievement-tag">Full Stack</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="leadership-card">
+                                <div class="leadership-icon">
+                                    <i class="fas fa-award"></i>
+                                </div>
+                                <div class="leadership-content">
+                                    <h4>IEEE Senior Member</h4>
+                                    <span class="leadership-period">2024</span>
+                                    <p>Led technical workshops, mentored students, and contributed to the professional development community.</p>
+                                    <div class="leadership-achievements">
+                                        <span class="achievement-tag">Senior Member</span>
+                                        <span class="achievement-tag">Workshops</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="leadership-card">
+                                <div class="leadership-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <div class="leadership-content">
+                                    <h4>Treasurer, NATEG ENSI</h4>
+                                    <span class="leadership-period">2023</span>
+                                    <p>Managed financial operations, budgeting, and event funding for the student organization.</p>
+                                    <div class="leadership-achievements">
+                                        <span class="achievement-tag">Financial Management</span>
+                                        <span class="achievement-tag">Event Planning</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="education-stats">
+                    <div class="education-stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" data-target="5">0</div>
+                            <div class="stat-label">Years Academic Excellence</div>
+                        </div>
+                    </div>
+                    <div class="education-stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" data-target="20">0</div>
+                            <div class="stat-label">Students Taught</div>
+                        </div>
+                    </div>
+                    <div class="education-stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" data-target="3">0</div>
+                            <div class="stat-label">Leadership Roles</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simplified Elegant Footer -->
+    <footer id="footer" class="footer">
+        <div class="stars-layer"></div>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Contact & About Section -->
+                <div class="footer-main">
+                    <h3 class="footer-title">Mohamed Amine Staali</h3>
+                    <p class="footer-subtitle">DevOps Engineer exploring the cosmos of technology</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-row">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <a href="mailto:stmedamine@gmail.com">stmedamine@gmail.com</a>
+                        </div>
+                        
+                        <div class="contact-row">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <a href="tel:+21621657585">+216 21 657 585</a>
+                        </div>
+                        
+                        <div class="contact-row">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span>Tunis, Tunisia <small>(Willing to relocate)</small></span>
+                        </div>
+                        
+                        <div class="contact-row">
+                            <div class="contact-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <span>Available for immediate start</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation & Resources Section -->
+                <div class="footer-nav">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#education">Education</a></li>
+                    </ul>
+                </div>
+
+                <!-- Connect Section -->
+                <div class="footer-connect">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links-grid">
+                        <a href="https://github.com/Amine-Staali" target="_blank" class="social-button">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/mohamed-amine-staali-b12275224/" target="_blank" class="social-button">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="mailto:stmedamine@gmail.com" class="social-button">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="tel:+21621657585" class="social-button">
+                            <i class="fas fa-phone"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2025 Mohamed Amine Staali. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
