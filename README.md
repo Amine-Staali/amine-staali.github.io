@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 # MyPortfolio
-=======
+
 # Mohamed Amine Staali - DevOps Engineer Portfolio
 
 A modern, responsive portfolio website showcasing professional experience, skills, and projects as a DevOps Engineer.
