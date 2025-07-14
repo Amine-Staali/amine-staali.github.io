@@ -2156,6 +2156,17 @@ section:not(.hero)::after {
     }
 }
 
+/* Extra small screens - additional scroll arrow clearance */
+@media (max-width: 769px) {
+    .scroll-indicator {
+        bottom: 0.5rem; /* Even more clearance on very small screens */
+    }
+    
+    .hero-content {
+        padding-bottom: 3rem; /* Add extra padding to prevent overlap */
+    }
+}
+
 /* Additional performance optimizations for desktop */
 @media (min-width: 769px) {
     /* Reduce animations on slower devices */
