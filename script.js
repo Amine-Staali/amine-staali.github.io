@@ -610,7 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Typing animation for hero title
     function typeWriter() {
-        const titles = ['DevOps Engineer', 'Cloud Architect', 'AI Enthusiast', 'Infrastructure Expert'];
+        const titles = ['DevOps Engineer', 'Cloud Engineer', 'Kubernetes & IaC', 'Agentic AI Builder'];
         const titleElement = document.querySelector('.hero-title');
         let titleIndex = 0;
         let charIndex = 0;
